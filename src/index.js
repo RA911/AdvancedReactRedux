@@ -1,6 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-const App = ({ message }) => <div>{message}</div>
+import App from './components/app.js';
+import reducers from './reducers';
 
-render(<App message="Hello World!" />, document.getElementById('app'));
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
+render(
+    <Provider store={createStoreWithMiddleware(reducers)}>
+        <App message={"Hello World!!!"} />
+    </Provider>,
+    document.getElementById('app')
+);
